@@ -1,4 +1,4 @@
-from src.pokemon import Pokemon, FirePokemon, WaterPokemon, GrassPokemon, NormalPokemon
+from src.pokemon import Pokemon, FirePokemon, WaterPokemon, GrassPokemon, NormalPokemon,Pokeball
 import pytest
 
 class TestParentProperties:
@@ -128,3 +128,39 @@ class TestGetMultiplierMethod:
         assert multiplier_1 == 1
         assert multiplier_0_point_5 == 0.5
 
+class TestPokeballProperties:
+    def test_pokemon_initialise_with_none(self):
+        pokeball = Pokeball()
+        assert pokeball.pokemon == None
+
+class TestCatchMethod:
+    def test_for_empty_and_occupied_pokeball(self):
+        pokeball = Pokeball()
+        fire = FirePokemon(name="Flareon",
+                           hitpoints=65,
+                           attack_damage=20,
+                           move="Fire blast")
+        fire_2 = FirePokemon(name="Flareon",
+                           hitpoints=65,
+                           attack_damage=20,
+                           move="Fire blast")       
+        assert pokeball.pokemon == None
+        pokeball.catch(fire)
+        assert pokeball.pokemon == fire
+        assert pokeball.pokemon.name == "Flareon"
+        with pytest.raises(Exception):
+            pokeball.catch(fire_2)
+
+class TestIsEmptyMethod:
+    def test_for_empty_pokeball(self):
+        pokeball = Pokeball()
+        fire = FirePokemon(name="Flareon",
+                           hitpoints=65,
+                           attack_damage=20,
+                           move="Fire blast")
+      
+        assert pokeball.is_empty() == True
+        pokeball.catch(fire)
+        assert pokeball.is_empty() == False
+       
+        

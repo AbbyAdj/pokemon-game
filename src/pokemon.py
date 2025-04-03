@@ -64,3 +64,17 @@ class NormalPokemon(Pokemon):
         super().__init__(name, hitpoints, attack_damage, move)
         self.type = "normal"
 
+class Pokeball:
+    def __init__(self):
+        self.pokemon = None
+    
+    def catch(self,pokemon):
+        if self.pokemon == None:
+            self.pokemon = pokemon
+        else:
+            raise Exception("This pokeball has already a pokemon")
+    
+    def is_empty(self)->bool:
+        if not self.pokemon:
+            return True
+        return False

@@ -1,4 +1,4 @@
-from src.pokemon import Pokemon, FirePokemon, WaterPokemon, GrassPokemon, NormalPokemon,Pokeball, Trainer
+from src.pokemon import  *
 import pytest
 
 # TODO implement fixtures for the testing and object creation
@@ -94,6 +94,7 @@ class TestPokeballProperties:
         assert pokeball.pokemon == None
 
 class TestTrainerProperties:
+
     def test_pokeballs_are_different_instances(self):
         trainer = Trainer()
         for i in range(len(trainer.belt)):
@@ -101,6 +102,11 @@ class TestTrainerProperties:
             if i == 0:
                 continue
             assert trainer.belt[i] is not trainer.belt[i-1] 
+
+# class TestBattleProperties:
+#     def test_battle_attributes_check():
+        
+
 
 class TestPokemonUseMoveMethod:
     def test_use_move_returns_string(self):
@@ -118,9 +124,9 @@ class TestPokemonTakeDamageMethod:
                           attack_damage=18,
                           move="Headbutt")
         pokemon.take_damage(20) 
-        assert pokemon.health == 80          
+        assert pokemon.hitpoints == 35          
         pokemon.take_damage(20) 
-        assert pokemon.health == 60   
+        assert pokemon.hitpoints == 15  
 
 class TestPokemonHasFaintedMethod:
     def test_for_health_above_zero(self):
@@ -221,5 +227,32 @@ class TestTrainerThrowPokeballMethod:
         
     def test_no_empty_pokeballs_on_the_belt(self):
         pass
+
+class TestBattleTakeTurnMethod:
+
+
+    def test_switches_attacker_and_defender(self):
+
+        fire = FirePokemon(name="Flareon",
+                        hitpoints=65,
+                        attack_damage=20,
+                        move="Fire blast")
+        
+        grass = GrassPokemon(name="Leafeon",
+                            hitpoints=65,
+                            attack_damage=17,
+                            move="Giga drain")  
+        battle = Battle(pokemon_1 = fire,pokemon_2 = grass)
+        assert battle.current_player == fire
+        battle.take_turn()
+        assert.battle.current_player == grass
+            
+
+    def test_method_calculates_damage_to_the_opponent_and_subtract_from_HP(self):
+        pass
+    
+    def test_raises_exception_if_a_pokemon_has_fainted(self):
+        pass
+
 
 

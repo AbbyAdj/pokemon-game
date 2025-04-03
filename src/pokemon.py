@@ -10,7 +10,6 @@ class Pokemon:
         self.attack_damage = attack_damage
         self.move = move
         # TODO change self.health to private and refactor
-        self.health = 100
         # TODO change strong against and weak against to private
         self.strong_against = []
         self.weak_against = []
@@ -19,11 +18,11 @@ class Pokemon:
         return f"{self.name} used {self.name}'s move"
 
     def take_damage(self, amount:int):
-        self.health -= amount
+        self.hitpoints -= amount
 
     def has_fainted(self) -> bool:
         """Returns true if health has hit zero and false otherwise"""
-        if self.health == 0:
+        if self.hitpoints <= 0:
             return True
         return False
 
@@ -103,5 +102,14 @@ class Trainer:
         occupied = len([ball for ball in self.belt if not ball.is_empty()])
         return occupied
 
+class Battle:
+    def __init__(self,pokemon_1,pokemon_2):
+        self.pokemon_1 = pokemon_1
+        self.pokemon_2 = pokemon_2
 
+    def take_turn(self):
+        pass
+    
+    def get_winner(self):
+        pass
 

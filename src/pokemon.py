@@ -37,7 +37,6 @@ class Pokemon:
             return 0.5
         return 1
 
-
 class FirePokemon(Pokemon):
     def __init__(self, name, hitpoints, attack_damage, move):
         super().__init__(name, hitpoints, attack_damage, move)
@@ -65,6 +64,7 @@ class NormalPokemon(Pokemon):
         self.type = "normal"
 
 class Pokeball:
+    """These contain pokemon"""
     def __init__(self):
         self.pokemon = None
     
@@ -78,3 +78,30 @@ class Pokeball:
         if not self.pokemon:
             return True
         return False
+
+class Trainer:
+    def __init__(self):
+        # On the belt, they have pokeballs, not pokemon
+        self.belt = []
+        for _ in range(6):
+            new_pokeball = Pokeball()
+            self.belt.append(new_pokeball)
+        
+    def throw_pokeball(self, pokemon):
+        """Uses available empty pokeballs to catch pokemon"""
+        for pokeball in self.belt:
+            if pokeball.is_empty():
+                try:
+                    pokeball.catch(pokemon)
+                except Exception:
+                    continue
+                return
+        raise Exception("No available pokeballs")
+
+    def get_occupied_pokeballs(self) -> int:
+        """Return total number of occupied pokeballs in the belt"""
+        occupied = len([ball for ball in self.belt if not ball.is_empty()])
+        return occupied
+
+
+

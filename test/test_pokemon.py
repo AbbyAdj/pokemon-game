@@ -1,7 +1,37 @@
-from src.pokemon import Pokemon, FirePokemon, WaterPokemon, GrassPokemon, NormalPokemon,Pokeball
+from src.pokemon import Pokemon, FirePokemon, WaterPokemon, GrassPokemon, NormalPokemon,Pokeball, Trainer
 import pytest
 
-class TestParentProperties:
+# TODO implement fixtures for the testing and object creation
+# @pytest.fixture(params=["water", "fire", "normal", "grass"])
+# def pokemon_factory(pokemon_type:str):
+#     fire = FirePokemon(name="Flareon",
+#                        hitpoints=65,
+#                        attack_damage=20,
+#                        move="Fire blast")
+    
+#     grass = GrassPokemon(name="Leafeon",
+#                          hitpoints=65,
+#                          attack_damage=17,
+#                          move="Giga drain")
+    
+#     normal = NormalPokemon(name="Eevee",
+#                     hitpoints=55,
+#                     attack_damage=18,
+#                     move="Headbutt")
+    
+#     water = WaterPokemon(name="Vaporeon",
+#                     hitpoints=70,
+#                     attack_damage=19,
+#                     move="Hydro pump")
+ 
+#     pokemon_dict = {"fire": fire,
+#                     "grass": grass,
+#                     "normal": normal,
+#                     "water": water,
+#                     }
+#     return pokemon_dict[pokemon_type]
+
+class TestParentPokemonProperties:
     def test_initialises_with_attributes(self):
         pokemon = Pokemon(name="Eevee",
                           hitpoints=55,
@@ -13,7 +43,7 @@ class TestParentProperties:
         assert pokemon.attack_damage == 18
         assert pokemon.move == "Headbutt"
 
-class TestChildProperties:
+class TestChildPokemonProperties:
     def test_fire_pokemon(self):
         fire_pokemon = FirePokemon(name="Eevee",
                         hitpoints=55,
@@ -58,7 +88,21 @@ class TestChildProperties:
         assert fire_pokemon.strong_against == []
         assert fire_pokemon.weak_against == []
 
-class TestUseMoveMethod:
+class TestPokeballProperties:
+    def test_pokemon_initialise_with_none(self):
+        pokeball = Pokeball()
+        assert pokeball.pokemon == None
+
+class TestTrainerProperties:
+    def test_pokeballs_are_different_instances(self):
+        trainer = Trainer()
+        for i in range(len(trainer.belt)):
+            assert trainer.belt[i].is_empty() is True
+            if i == 0:
+                continue
+            assert trainer.belt[i] is not trainer.belt[i-1] 
+
+class TestPokemonUseMoveMethod:
     def test_use_move_returns_string(self):
         pokemon = Pokemon(name="Eevee",
                           hitpoints=55,
@@ -67,7 +111,7 @@ class TestUseMoveMethod:
         
         assert pokemon.use_move() == "Eevee used Eevee's move"
 
-class TestTakeDamageMethod:
+class TestPokemonTakeDamageMethod:
     def test_take_damage_reduces_health(self):
         pokemon = Pokemon(name="Eevee",
                           hitpoints=55,
@@ -78,7 +122,7 @@ class TestTakeDamageMethod:
         pokemon.take_damage(20) 
         assert pokemon.health == 60   
 
-class TestHasFaintedMethod:
+class TestPokemonHasFaintedMethod:
     def test_for_health_above_zero(self):
         pokemon = Pokemon(name="Eevee",
                         hitpoints=55,
@@ -97,7 +141,7 @@ class TestHasFaintedMethod:
 
         assert pokemon.has_fainted() is True
 
-class TestGetMultiplierMethod:
+class TestPokemonGetMultiplierMethod:
     def test_get_multiplier_method(self):
         
         fire = FirePokemon(name="Flareon",
@@ -128,12 +172,7 @@ class TestGetMultiplierMethod:
         assert multiplier_1 == 1
         assert multiplier_0_point_5 == 0.5
 
-class TestPokeballProperties:
-    def test_pokemon_initialise_with_none(self):
-        pokeball = Pokeball()
-        assert pokeball.pokemon == None
-
-class TestCatchMethod:
+class TestPokeballCatchMethod:
     def test_for_empty_and_occupied_pokeball(self):
         pokeball = Pokeball()
         fire = FirePokemon(name="Flareon",
@@ -151,7 +190,7 @@ class TestCatchMethod:
         with pytest.raises(Exception):
             pokeball.catch(fire_2)
 
-class TestIsEmptyMethod:
+class TestPokeballIsEmptyMethod:
     def test_for_empty_pokeball(self):
         pokeball = Pokeball()
         fire = FirePokemon(name="Flareon",
@@ -163,4 +202,24 @@ class TestIsEmptyMethod:
         pokeball.catch(fire)
         assert pokeball.is_empty() == False
        
+class TestTrainerThrowPokeballMethod:
+    def test_at_least_one_empty_pokeball_on_the_belt(self):
+        trainer = Trainer()
+        fire_pokemon = FirePokemon(name="Flareon",
+                           hitpoints=65,
+                           attack_damage=20,
+                           move="Fire blast")
         
+        initial = trainer.get_occupied_pokeballs()
+        
+        trainer.throw_pokeball(pokemon=fire_pokemon)
+  
+        final = trainer.get_occupied_pokeballs()
+
+        assert initial != final
+        assert final == initial + 1
+        
+    def test_no_empty_pokeballs_on_the_belt(self):
+        pass
+
+

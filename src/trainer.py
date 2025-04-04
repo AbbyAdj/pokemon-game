@@ -1,4 +1,5 @@
 from src.pokeball import Pokeball
+from src.pokemon import Pokemon
 
 class Trainer:
     """The trainer initialises with 6 empty pokeballs. 
@@ -25,3 +26,17 @@ class Trainer:
         """Return total number of occupied pokeballs in the belt"""
         occupied_pokeballs = len([ball for ball in self.belt if not ball.is_empty()])
         return occupied_pokeballs
+    
+    def __str__(self):
+        return f"I have {len(self)} occupied pokeballs"
+    
+if __name__ == "__main__":
+    trainer = Trainer()
+    print(trainer)
+    pokemon = Pokemon(name="Vaporeon",
+                    hitpoints=70,
+                    attack_damage=19,
+                    move="Hydro pump")    
+    trainer.throw_pokeball(pokemon)
+
+    print(trainer)

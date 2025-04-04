@@ -59,6 +59,8 @@ class Battle:
             return self.pokemon_1
         return None
 
+    def __str__(self):
+        return f"pokemon {self.pokemon_1.name} is fighting with pokemon {self.pokemon_2.name}"
 
 
 
@@ -75,15 +77,17 @@ if __name__ == "__main__":
                     attack_damage=17,
                     move="Giga drain")
     battle = Battle(pokemon_1 = fire_pokemon ,pokemon_2 = grass_pokemon) 
-    battle.take_turn()
-    print(battle.pokemon_2.hitpoints)
+    # battle.take_turn()
+    # print(battle.pokemon_2.hitpoints)
 
-    battle.take_turn() 
-    battle.take_turn() 
-    print(battle.pokemon_2.hitpoints)
-    battle.take_turn() 
-    battle.take_turn() 
-    print(battle.pokemon_2.hitpoints)
+    # battle.take_turn() 
+    # battle.take_turn() 
+    # print(battle.pokemon_2.hitpoints)
+    # battle.take_turn() 
+    # battle.take_turn() 
+    # print(battle.pokemon_2.hitpoints)
+
+    print(battle)
 
 
     

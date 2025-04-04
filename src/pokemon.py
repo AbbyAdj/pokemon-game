@@ -36,6 +36,10 @@ class Pokemon:
         if pokemon.type in self.weak_against:
             return 0.5
         return 1
+    
+    def __str__(self):
+
+        return f"My name is {self.name},i have {self.hitpoints} hitpoints and i do {self.attack_damage} damage and my move is {self.move} "
 
 class FirePokemon(Pokemon):
     def __init__(self, name, hitpoints, attack_damage, move):
@@ -63,3 +67,10 @@ class NormalPokemon(Pokemon):
         super().__init__(name, hitpoints, attack_damage, move)
         self.type = "normal"
 
+if __name__ == "__main__":
+    grass_pokemon = GrassPokemon(name="Leafeon",
+                            hitpoints=65,
+                            attack_damage=17,
+                            move="Giga drain")
+    
+    print(grass_pokemon)

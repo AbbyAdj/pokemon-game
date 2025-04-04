@@ -1,4 +1,5 @@
 from src.pokemon import FirePokemon, GrassPokemon
+import time
 
 class PokemonHasFainted(Exception):
     pass
@@ -34,9 +35,12 @@ class Battle:
         # We might need to take out the two parameters above and use the self ones directly
         # call take damage for the defender. 
         # Use the attackers multiplier to check the total damage the attacker will infict
-        
         total_attacker_damage = self.attacker.attack_damage * self.attacker.get_multiplier(self.defender)
         self.defender.take_damage(amount=total_attacker_damage)
+        time.sleep(1)
+        print(f"{self.attacker.name} has inflicted {total_attacker_damage} damage points on {self.defender.name}'s hp.\n"
+              f"Total remaining hp for {self.defender.name} is {self.defender.hitpoints}\n\n")
+        time.sleep(1)
 
         # Call this method at the beginning of each pokemon's turn method, 
 
@@ -61,8 +65,6 @@ class Battle:
 
     def __str__(self):
         return f"pokemon {self.pokemon_1.name} is fighting with pokemon {self.pokemon_2.name}"
-
-
 
 
 if __name__ == "__main__":

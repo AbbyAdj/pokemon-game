@@ -65,8 +65,6 @@ class Battle:
 
 
 
-
-
 if __name__ == "__main__":
     fire_pokemon = FirePokemon(name="Flareon",
                     hitpoints=65,

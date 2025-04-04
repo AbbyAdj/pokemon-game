@@ -11,18 +11,19 @@ class PokemonGame:
         self.player_two = self.trainer_two
 
     def decide_starting_player(self,num=1):
-        # first_player_decision = random.randint(1,2)
+        
         if num == 2:
             self.player_one = self.trainer_two
             self.player_two = self.trainer_one
     
     def players_catch_pokemon(self, first_pokemon, second_pokemon) -> bool:
+        """Only invoke if players do not have any pokemon in their belt"""
         self.player_one.throw_pokeball(first_pokemon)
         self.player_two.throw_pokeball(second_pokemon)
     
-    def start_battle(self):
-        player_one_pokemon = self.player_one.belt[0].pokemon
-        player_two_pokemon = self.player_two.belt[0].pokemon
+    def start_battle(self, player_one_pokemon, player_two_pokemon):
+        # player_one_pokemon = self.player_one.belt[0].pokemon
+        # player_two_pokemon = self.player_two.belt[0].pokemon
 
         game = Battle(pokemon_1=player_one_pokemon,
                       pokemon_2=player_two_pokemon)

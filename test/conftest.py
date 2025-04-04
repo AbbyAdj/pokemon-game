@@ -52,5 +52,5 @@ def pokeball():
 
 @pytest.fixture
 def trainer():
-    trainer = Trainer()
+    trainer = Trainer("A")
     return trainer

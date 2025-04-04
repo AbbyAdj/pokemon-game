@@ -1,5 +1,5 @@
-from trainer import Trainer
-from battle import Battle, PokemonHasFainted
+from src.trainer import Trainer
+from src.battle import Battle, PokemonHasFainted
 import random
 
 class PokemonGame:
@@ -10,13 +10,13 @@ class PokemonGame:
         self.player_one = self.trainer_one
         self.player_two = self.trainer_two
 
-    def decide_starting_player(self):
-        first_player_decision = random.randint(1,2)
-        if first_player_decision == 2:
+    def decide_starting_player(self,num=1):
+        # first_player_decision = random.randint(1,2)
+        if num == 2:
             self.player_one = self.trainer_two
             self.player_two = self.trainer_one
     
-    def player_catch_pokemon(self, first_pokemon, second_pokemon) -> bool:
+    def players_catch_pokemon(self, first_pokemon, second_pokemon) -> bool:
         self.player_one.throw_pokeball(first_pokemon)
         self.player_two.throw_pokeball(second_pokemon)
     
@@ -44,8 +44,9 @@ class PokemonGame:
         winner_pokemon = self.start_battle()
         winner = self.player_one
 
-        if self.player_one.belt[0].pokemon.is_fainted():
+        if self.player_one.belt[0].pokemon.has_fainted():
             winner = self.player_two
 
-        print(f"{winner_pokemon} pokemon has won. {winner.name} is the winner.")
+        print(f"{winner_pokemon.name} pokemon has won. {winner.name} is the winner.")
+        return winner
         

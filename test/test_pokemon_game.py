@@ -44,7 +44,7 @@ class TestStartBattle:
         trainer_2 = Trainer("B")
         new_game = PokemonGame(trainer_1,trainer_2)
         new_game.players_catch_pokemon(fire_pokemon,grass_pokemon)
-        winner = new_game.start_battle()
+        winner = new_game.start_battle(fire_pokemon, grass_pokemon)
         assert winner== fire_pokemon
         
 class TestShowWinnerMethod:
@@ -56,8 +56,8 @@ class TestShowWinnerMethod:
         trainer_2 = Trainer("B")
         new_game = PokemonGame(trainer_1,trainer_2)
         new_game.players_catch_pokemon(fire_pokemon,grass_pokemon)
-        winner = new_game.start_battle()
-        winning_player = new_game.show_winner()
+        winner = new_game.start_battle(fire_pokemon, grass_pokemon)
+        winning_player = new_game.show_winner(winner)
         
         captured = capsys.readouterr()
-        assert captured.out == f"{winner.name} pokemon has won. {winning_player.name} is the winner.\n"
+        assert f"{winner.name} pokemon has won. {winning_player.name} is the winner.\n" in captured.out

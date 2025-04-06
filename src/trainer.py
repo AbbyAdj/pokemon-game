@@ -4,7 +4,7 @@ from src.pokemon import Pokemon
 class Trainer:
     """The trainer initialises with 6 empty pokeballs. 
     They can throw empty pokeballs to catch a new pokemon"""
-    def __init__(self, name):
+    def __init__(self, name="Player"):
         self.name = name
         # On the belt, they have pokeballs, not pokemon
         self.belt = []
@@ -31,8 +31,9 @@ class Trainer:
     def __str__(self):
         return f"My name is {self.name}. I have {len(self)} occupied pokeballs"
     
-    # def __iter__(self):
-    #     for 
+    def __iter__(self):
+        for pokeball in self.belt:
+            yield pokeball.pokemon
     
 if __name__ == "__main__":
     trainer = Trainer()

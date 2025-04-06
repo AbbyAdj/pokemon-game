@@ -1,6 +1,4 @@
-from src.trainer import Trainer
 from src.battle import Battle, PokemonHasFainted
-import random
 
 class PokemonGame:
     def __init__(self, trainer_one, trainer_two):
@@ -11,7 +9,7 @@ class PokemonGame:
         self.player_two = self.trainer_two
 
     def decide_starting_player(self,num=1):
-        
+        """Only invokes if second player is to start. Otherwise the normal order is followed"""
         if num == 2:
             self.player_one = self.trainer_two
             self.player_two = self.trainer_one
@@ -22,30 +20,29 @@ class PokemonGame:
         self.player_two.throw_pokeball(second_pokemon)
     
     def start_battle(self, player_one_pokemon, player_two_pokemon):
-        # player_one_pokemon = self.player_one.belt[0].pokemon
-        # player_two_pokemon = self.player_two.belt[0].pokemon
-
+        """This invokes a battle object taking the two starting pokemon as args.
+        Once a pokemon faints, the show_winner method is called and the winner is announced."""
         game = Battle(pokemon_1=player_one_pokemon,
                       pokemon_2=player_two_pokemon)
-        
-        game_ongoing = True
-        
-        while game_ongoing:
+
+        while True:
             try:
                 game.take_turn()
             except PokemonHasFainted:
-                winner = game.get_winner()
-                return winner
-                # game_ongoing = False
+                winning_pokemon = game.get_winner()
+                print("Getting results......")
+                self.show_winner(winning_pokemon=winning_pokemon)
+                return winning_pokemon
             else:
                 pass
                 # communicate trainer who won
     
-    def show_winner(self):
-        winner_pokemon = self.start_battle()
+    def show_winner(self, winning_pokemon):
+        winner_pokemon = winning_pokemon
         winner = self.player_one
 
-        if self.player_one.belt[0].pokemon.has_fainted():
+
+        if winner_pokemon in self.player_two:
             winner = self.player_two
 
         print(f"{winner_pokemon.name} pokemon has won. {winner.name} is the winner.")

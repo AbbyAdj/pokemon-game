@@ -1,4 +1,5 @@
 from pokemon import FirePokemon, GrassPokemon, NormalPokemon, WaterPokemon
+import random
 
 
 
@@ -50,3 +51,24 @@ class Squirtle(WaterPokemon):
                          hitpoints=44, 
                          attack_damage=16, 
                          move="Surf")
+
+
+def pokemon_factory():
+    """Return a random instance of a pokemon"""
+    # pokemon_list = [Flareon()]
+    pokemon_list = [Flareon(), Charmander(), Leafeon(), Bulbasaur(), Eevee(), Vaporeon(), Squirtle()]
+    return random.choice(pokemon_list)
+
+def choose_pokemon(user_choice):
+    """Allows user to choose pokemon type they want"""
+    pokemon_dict = {
+        "flareon": Flareon(),
+        "charmander": Charmander(),
+        "leafeon": Leafeon(),
+        "bulbasaur": Bulbasaur(),
+        "eevee": Eevee(),
+        "vaporeon": Vaporeon(),
+        "squirtle": Squirtle()
+    }
+    return pokemon_dict.get(user_choice)
+

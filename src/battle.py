@@ -32,9 +32,7 @@ class Battle:
 
     def calculate_damage(self):
         """Calculates the total damage the attack deals on the defender's hitpoints"""
-        # We might need to take out the two parameters above and use the self ones directly
-        # call take damage for the defender. 
-        # Use the attackers multiplier to check the total damage the attacker will infict
+        
         total_attacker_damage = self.attacker.attack_damage * self.attacker.get_multiplier(self.defender)
         self.defender.take_damage(amount=total_attacker_damage)
         time.sleep(1)
